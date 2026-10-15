@@ -281,7 +281,8 @@
     font-weight: 700; line-height: 1.04; letter-spacing: -0.035em;
     text-wrap: balance;
   }
-  .headline .accent { color: var(--accent); }
+  .headline .accent, .headline .hl-defend { color: var(--accent); }
+  .headline .hl-attack { color: var(--accent-2); }
 
   .lede { max-width: 58ch; color: var(--ink-2); font-size: 1.08rem; line-height: 1.7; text-wrap: pretty; }
 
@@ -591,7 +592,7 @@
 
 <header>
   <div class="wrap header-inner">
-    <a class="brand" href="#top">nayush<span class="dot">.</span>ghimire</a>
+    <a class="brand" href="#top">nayush<span class="dot">-</span>ghimire</a>
     <nav aria-label="Primary">
       <a href="#about">About</a>
       <a href="#work">Work</a>
@@ -604,13 +605,14 @@
 <main id="top" tabindex="-1">
   <div class="wrap hero">
     <div class="hero-top">
-      <h1 class="headline">I harden systems, then try to break them<span class="accent">.</span></h1>
+      <h1 class="headline">I <span class="hl-defend">harden</span> systems, <br>then try to <span class="hl-attack">break</span> them<span class="accent">.</span></h1>
       <img class="avatar" src="assets/pictures/nayush.png" alt="Nayush Ghimire" onerror="this.style.display='none'">
       <div class="hero-text">
         <p class="lede">Hello , I am Nayush Ghimire, an 18-year-old, self taught security-minded developer. I spend most of my time inside a terminal locking down systems, picking apart the OWASP Top 10, and writing the scripts that hold it all together.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="https://github.com/nayush-ghimire" target="_blank" rel="noopener">View GitHub</a>
           <a class="btn btn-secondary" href="#contact">Get in touch</a>
+          <a class="btn btn-secondary" href="Blogs/blogpage.html">View blogs</a>
           <a class="btn btn-secondary btn-quiet" href="assets/Nayush-ghimire-cv.pdf" download>Download CV</a>
         </div>
       </div>
@@ -639,7 +641,7 @@
           <p>I love making well-documented projects, everything I build comes with clear writeups and projects on GitHub that show the work rather than describe it.</p>
         </div>
         <ul class="skills-list">
-          <li><span>Python &amp; Bash scripting</span><span class="tag">daily use</span></li>
+          <li><span>Python &amp; Bash scripting</span><span class="tag">Linux automation</span></li>
           <li><span>Linux hardening</span><span class="tag">LUKS2 · TPM2 · Secure Boot</span></li>
           <li><span>Web app security</span><span class="tag">OWASP Top 10</span></li>
           <li><span>Virtualization labs</span><span class="tag">KVM / libvirt</span></li>
