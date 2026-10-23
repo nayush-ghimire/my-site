@@ -1,10 +1,1 @@
-[
-  {
-    "id": 1,
-    "title": "PHP’s Critical 'PHP2Shell' Vulnerability",
-    "date": "2026-10-24",
-    "categories": ["Web", "security","CVE"],
-    "cover": "./b1/b1-1.png",
-    "url": "./b1/b1.html"
-  }
-]
+[]
