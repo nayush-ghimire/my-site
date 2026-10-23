@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>$title | Nayush Ghimire</title>
+<meta name="description" content="$summary">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="$canonical">
+<meta property="og:type" content="article">
+<meta property="og:title" content="$title">
+<meta property="og:description" content="$summary">
+<meta property="og:url" content="$canonical">
+<meta property="og:image" content="$og_image">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Same design tokens as ../blogpage.html and the homepage */
+:root {
+  color-scheme: dark;
+  --bg: #000000; --bg-2: #07090D; --surface: #0D1218; --surface-2: #131A22;
+  --line: #253244; --line-soft: #1A2433;
+  --ink: #E6EDF5; --ink-2: #98A8BA; --ink-3: #7385A0;
+  --accent: #2BE8A4; --accent-ink: #04130D; --accent-soft: rgb(43 232 164 / 0.10); --accent-line: rgb(43 232 164 / 0.38);
+  --accent-2: #3CC8F0;
+  --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --r-sm: 4px; --r-md: 8px; --t-fast: 160ms; --header-h: 60px;
+  --pad: clamp(20px, 4vw, 40px);
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 16px); }
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans); font-size: 1rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, p, figure { margin: 0; }
+a { color: inherit; }
+::selection { background: var(--accent-soft); color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--r-sm); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--pad); width: 100%; }
+
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--bg) 82%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line-soft); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; column-gap: 24px; row-gap: 6px; min-height: var(--header-h); }
+.brand { font-family: var(--font-mono); font-weight: 500; font-size: 0.92rem; text-decoration: none; letter-spacing: -0.01em; }
+.brand::before { content: "> " / ""; color: var(--ink-3); }
+.brand .dot { color: var(--accent); }
+.back { font-size: 0.92rem; color: var(--ink-2); text-decoration: none; transition: color var(--t-fast) ease; }
+.back:hover { color: var(--accent); }
+
+main { flex: 1 0 auto; padding-top: clamp(40px, 6vw, 72px); }
+article { max-width: 720px; margin: 0 auto; }
+h1.title { font-size: clamp(1.75rem, 3.6vw, 2.6rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.03em; text-wrap: balance; margin-bottom: 16px; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 20px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-2); margin-bottom: 28px; }
+.cats { text-transform: capitalize; }
+img.cover { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover;
+  border: 1px solid var(--line); border-radius: var(--r-md); margin-bottom: 32px; }
+
+.prose { font-size: 1.0625rem; line-height: 1.75; color: var(--ink); overflow-wrap: anywhere; }
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; margin-top: 2.2em; }
+.prose h3 { font-size: 1.2rem; font-weight: 600; line-height: 1.3; margin-top: 1.8em; }
+.prose h2 + *, .prose h3 + * { margin-top: 0.6em; }
+.prose a { color: var(--accent); text-underline-offset: 3px; text-decoration-color: var(--accent-line); }
+.prose a:hover { text-decoration-color: var(--accent); }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li + li { margin-top: 0.35em; }
+.prose li::marker { color: var(--ink-3); }
+.prose blockquote { margin-left: 0; padding: 4px 0 4px 18px; border-left: 2px solid var(--accent-line); color: var(--ink-2); }
+.prose hr { border: 0; border-top: 1px solid var(--line-soft); margin: 2.2em 0; }
+.prose code { font-family: var(--font-mono); font-size: 0.88em; padding: 2px 6px; background: var(--surface-2); border: 1px solid var(--line-soft); border-radius: var(--r-sm); color: var(--accent-2); }
+.prose pre, .codehilite { margin: 0; }
+.prose .codehilite, .prose > pre { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); overflow-x: auto; }
+.prose .codehilite pre { margin: 0; padding: 16px 18px; overflow-x: auto; line-height: 1.55; }
+.prose pre code { padding: 0; background: none; border: 0; color: inherit; font-size: 0.85rem; }
+.prose figure img, .prose p img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--r-md); }
+.prose figcaption { margin-top: 8px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-3); text-align: center; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+.prose th, .prose td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line-soft); }
+.prose th { background: var(--surface); font-weight: 600; }
+.prose tr:last-child td { border-bottom: 0; }
+.post-end { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line-soft); }
+
+footer { margin-top: clamp(56px, 8vw, 96px); border-top: 1px solid var(--line-soft); }
+.footer-inner { padding-top: 28px; padding-bottom: 36px; text-align: center; color: var(--ink-2); font-family: var(--font-mono); font-size: 0.8rem; }
+
+/* Code highlighting (generated by Pygments at build time) */
+$code_css
+.codehilite, .codehilite pre, .codehilite span { background: transparent !important; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap header-inner">
+    <a href="../blogpage.html" class="brand">Blogs:nayush<span class="dot">-</span>ghimire</a>
+    <a href="../blogpage.html" class="back"><span aria-hidden="true">&larr;</span> All blogs</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <article>
+      <h1 class="title">$title</h1>
+      <div class="meta">
+        <time datetime="$date_iso">$date_display</time>
+        $categories
+        <span>$minutes min read</span>
+      </div>
+      $cover
+      <div class="prose">
+$content
+      </div>
+      <div class="post-end"><a href="../blogpage.html" class="back"><span aria-hidden="true">&larr;</span> All blogs</a></div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footer-inner"><p>&copy; $year Nayush Ghimire. All rights reserved.</p></div>
+</footer>
+</body>
+</html>
