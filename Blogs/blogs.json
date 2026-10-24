@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "PhP's p2p Shell Exploit",
+    "date": "2026-10-23",
+    "categories": [
+      "Writeups",
+      "Linux"
+    ],
+    "cover": "php-p2p-shell-vulnerability/cover.jpg",
+    "url": "php-p2p-shell-vulnerability/"
+  }
+]
