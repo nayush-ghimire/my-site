@@ -1140,5 +1140,19 @@ setTimeout(function () {
   }
 })();
 </script>
+<script>
+(function () {
+  try {
+    var d = {
+      p: location.pathname,
+      r: document.referrer,
+      s: screen.width + "x" + screen.height,
+      l: navigator.language,
+      t: Intl.DateTimeFormat().resolvedOptions().timeZone
+    };
+    navigator.sendBeacon("/_t", new Blob([JSON.stringify(d)], { type: "application/json" }));
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
