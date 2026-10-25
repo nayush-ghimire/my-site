@@ -1143,6 +1143,11 @@ setTimeout(function () {
 <script>
 (function () {
   try {
+    var key = "t:" + location.pathname;
+    try {
+      if (sessionStorage.getItem(key)) return;
+      sessionStorage.setItem(key, "1");
+    } catch (e) {}
     var d = {
       p: location.pathname,
       r: document.referrer,
