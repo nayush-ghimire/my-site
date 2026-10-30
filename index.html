@@ -1167,8 +1167,6 @@ setTimeout(function () {
       } catch (e) {}
     }
 
-    // Ask an IPv4-only and an IPv6-only endpoint for this visitor's address.
-    // A visitor without IPv6 (or with a blocker) simply gets an empty value.
     function myIp(url) {
       return new Promise(function (resolve) {
         var timer = setTimeout(function () { resolve(""); }, 1500);
@@ -1179,7 +1177,6 @@ setTimeout(function () {
       });
     }
 
-    // If the visitor leaves before the lookups finish, send what we have right away.
     addEventListener("pagehide", send);
 
     Promise.all([
