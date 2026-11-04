@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "Summary of Black October 2026",
+    "date": "2026-11-04",
+    "categories": [
+      "CVE",
+      "Hack"
+    ],
+    "cover": "black-october-2026/cover.jpg",
+    "url": "black-october-2026/"
+  }
+]
