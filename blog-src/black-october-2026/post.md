@@ -25,7 +25,7 @@ PHP2Shell is the nickname for two critical PHP core vulnerabilities that can giv
 
 ## 2. eMudhra Intermediate CA Compromise
 ![](emudra.png)
-On October 17, a researcher known as Wayne told the browser root programs and eMudhra that he had recovered the private keys for eight of eMudhra’s intermediate CA certificates. He proved it by signing a message with each key. Six of the eight were for TLS (websites) and two were for code signing, all using the secp384r1 elliptic curve. [<i>[source]</i>]('https://braindetox.kr/en/posts/emudhra_intermediate_ca_private_key_leak.html')
+On October 17, a researcher known as Wayne told the browser root programs and eMudhra that he had recovered the private keys for eight of eMudhra’s intermediate CA certificates. He proved it by signing a message with each key. Six of the eight were for TLS (websites) and two were for code signing, all using the secp384r1 elliptic curve.
 
 ## 3. Node2Shell (CVE-2026-111497)!
 ::: image-right
