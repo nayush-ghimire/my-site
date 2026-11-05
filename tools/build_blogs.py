@@ -45,6 +45,15 @@ MEDIA_RE = re.compile(
 )
 IMG_LINE_RE = re.compile(r"!\[[^\]]*\]\([^)]+\)")
 WIDTH_RE = re.compile(r"\d{1,4}(?:px|%|rem)")
+YT_RE = re.compile(r'^@\[youtube\]\(\s*([^)\s]+)(?:\s+"([^"]*)")?\s*\)[ \t]*$', re.M)
+YT_ID_RE = re.compile(r"(?:^|v=|youtu\.be/|embed/|shorts/)([A-Za-z0-9_-]{11})(?:$|[&?/#])")
+# One tiny script, added to a page only if it contains a video. Click -> swaps the thumbnail for the player.
+YT_SCRIPT = """<script>document.addEventListener('click',function(e){var b=e.target.closest('.yt-play');
+if(!b)return;var w=b.parentNode,f=document.createElement('iframe');
+f.src='https://www.youtube-nocookie.com/embed/'+w.dataset.id+'?autoplay=1&rel=0';
+f.title=b.getAttribute('data-title')||'YouTube video';
+f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;
+w.replaceChildren(f);});</script>"""
 
 # Appended to the pygments CSS, so post_template.html needs no change.
 # (Move it into your main stylesheet later if you prefer.)
@@ -61,6 +70,13 @@ MEDIA_CSS = """
 .media-center.media-right{flex-direction:row-reverse}
 .media-center .media-text{flex:1;min-width:0}
 h1,h2,h3,h4{clear:both}
+.yt{position:relative;aspect-ratio:16/9;margin:2rem 0;background:#000;border-radius:8px;overflow:hidden;clear:both}
+.yt-play,.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0}
+.yt-play{cursor:pointer;background:#000}
+.yt-play img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .2s}
+.yt-play:hover img,.yt-play:focus-visible img{opacity:1}
+.yt-btn{position:absolute;left:50%;top:50%;width:68px;height:48px;margin:-24px 0 0 -34px;background:#f00;border-radius:12px}
+.yt-btn::after{content:"";position:absolute;left:27px;top:14px;border-style:solid;border-width:10px 0 10px 18px;border-color:transparent transparent transparent #fff}
 @media(max-width:640px){
  .media figure,.media-right figure{float:none;width:100%;max-width:100%;margin:0 0 1rem}
  .media-center{display:block}
@@ -124,6 +140,18 @@ def render_media(kind, opts, inner):
             f'<div class="media-text">\n{text}\n</div>\n</div>')
 
 
+def render_youtube(ref, title):
+    m = YT_ID_RE.search(ref)
+    if not m:
+        raise ValueError(f"can't find a YouTube video id in '{ref}' (use the 11-character id or a youtube.com / youtu.be link)")
+    vid = m.group(1)
+    label = html.escape(title or "Play video", quote=True)
+    return (f'<div class="yt" data-id="{vid}">'
+            f'<button class="yt-play" type="button" data-title="{label}" aria-label="Play video: {label}">'
+            f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" loading="lazy"><span class="yt-btn"></span></button>'
+            f'<noscript><a href="https://www.youtube.com/watch?v={vid}">Watch on YouTube</a></noscript></div>')
+
+
 def render_markdown(body, allow_media=True):
     blocks = []
     if allow_media:
@@ -131,6 +159,11 @@ def render_markdown(body, allow_media=True):
             blocks.append(render_media(m.group(1), m.group(2), m.group(3)))
             return f"\n\nZZMEDIABLOCK{len(blocks) - 1}ZZ\n\n"
         body = MEDIA_RE.sub(stash, body)
+
+        def stash_yt(m):
+            blocks.append(render_youtube(m.group(1), m.group(2)))
+            return f"\n\nZZMEDIABLOCK{len(blocks) - 1}ZZ\n\n"
+        body = YT_RE.sub(stash_yt, body)
 
     md = markdown.Markdown(
         extensions=["fenced_code", "tables", "toc", "codehilite", "sane_lists"],
@@ -247,7 +280,7 @@ def main():
             og_image=html.escape(f"{SITE_URL}/Blogs/{slug}/{cover_url}") if cover else "",
             date_iso=d.isoformat(), date_display=f"{d:%b} {d.day}, {d.year}",
             categories=cats_html, minutes=minutes, cover=cover_html,
-            content=content, code_css=code_css, year=date.today().year,
+            content=content + (YT_SCRIPT if 'class="yt"' in content else ""), code_css=code_css, year=date.today().year,
         )
         built.append({
             "slug": slug, "folder": folder, "source": source, "dest": dest, "page": page,
